@@ -40,3 +40,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Composer image
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/
+
+# development.
+
+FROM base AS development
+
+ARG UID=1000
+ARG GID=1000
+
+RUN groupmod -g $GID www-data && usermod -u $UID www-data
+
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+USER www-data
