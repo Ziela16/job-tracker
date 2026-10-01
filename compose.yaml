@@ -18,5 +18,17 @@ services:
       - "80:80"
     depends_on:
       - php-fpm
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_DATABASE: ${DB_DATABASE}
+    ports:
+    - "3306:3306"
+    volumes:
+    - mysql_data:/var/lib/mysql
 
-
+volumes: 
+  mysql_data:
